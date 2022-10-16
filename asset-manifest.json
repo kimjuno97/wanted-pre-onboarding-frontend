@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/wanted-pre-onboarding-frontend.git/static/js/main.523ea407.js",
-    "static/media/plus.svg": "/wanted-pre-onboarding-frontend.git/static/media/plus.027e6347d109f6f3b130d0a8f6cefeff.svg",
-    "index.html": "/wanted-pre-onboarding-frontend.git/index.html",
-    "static/media/delete.svg": "/wanted-pre-onboarding-frontend.git/static/media/delete.41469ef3a938db1b68e26544fcc3beb3.svg",
-    "main.523ea407.js.map": "/wanted-pre-onboarding-frontend.git/static/js/main.523ea407.js.map"
+    "main.js": "/wanted-pre-onboarding-frontend/static/js/main.ab74455b.js",
+    "static/media/plus.svg": "/wanted-pre-onboarding-frontend/static/media/plus.027e6347d109f6f3b130d0a8f6cefeff.svg",
+    "index.html": "/wanted-pre-onboarding-frontend/index.html",
+    "static/media/delete.svg": "/wanted-pre-onboarding-frontend/static/media/delete.41469ef3a938db1b68e26544fcc3beb3.svg",
+    "main.ab74455b.js.map": "/wanted-pre-onboarding-frontend/static/js/main.ab74455b.js.map"
   },
   "entrypoints": [
-    "static/js/main.523ea407.js"
+    "static/js/main.ab74455b.js"
   ]
 }
