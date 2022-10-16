@@ -4,7 +4,7 @@ import Todo from './Todo/Todo';
 
 export default function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="wanted-pre-onboarding-frontend">
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/todo" element={<Todo />} />
