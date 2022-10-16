@@ -30,7 +30,6 @@ export default function Todo() {
 	};
 
 	const changeChecked = seletedId => {
-		console.log(seletedId);
 		setListArray(prev =>
 			prev.map(({ id, todo, isCompleted, userId }) => {
 				if (id === seletedId) {
