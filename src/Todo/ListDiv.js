@@ -24,7 +24,7 @@ export default function ListDiv({
 	};
 
 	const showBtn = updateToggle ? (
-		<StyledUpdateBtn onClick={() => updataList(id)}>✍️</StyledUpdateBtn>
+		<StyledUpdateBtn onClick={e => updataList(e, id)}>✍️</StyledUpdateBtn>
 	) : (
 		<StyledDelBtn onClick={() => deleteList(id)}>
 			<img src={deleteBtn} alt='delBtn' />

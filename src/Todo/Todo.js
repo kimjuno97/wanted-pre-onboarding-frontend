@@ -22,9 +22,11 @@ export default function Todo() {
 		}
 	};
 
-	const updataList = seletedId => {
+	const updataList = (e, seletedId) => {
+		e.preventDefault();
 		if (window.confirm('정말로 수정하시겠습니까?')) {
 			const [updateValue] = listArray.filter(({ id }) => id === seletedId);
+			console.log(updateValue);
 			TODO.UPDATE(seletedId, updateValue.todo, updateValue.isCompleted);
 		}
 	};
