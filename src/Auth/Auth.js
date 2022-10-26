@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../api/api';
-import { headers } from '../api/header';
 import InputBox from './InputBox';
 import * as S from './Styled.Auth';
 
@@ -45,6 +44,11 @@ export default function Auth() {
 			signMode === 'signIn'
 				? `${baseUrl}/auth/signin`
 				: `${baseUrl}/auth/signup`;
+
+		const headers = {
+			'Content-Type': 'application/json',
+		};
+
 		const options = {
 			method: 'POST',
 			headers,
@@ -128,7 +132,6 @@ export default function Auth() {
 				/>
 			</>
 		);
-
 	return (
 		<S.LoginBox>
 			<S.TitleBox>{signTitle}</S.TitleBox>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './Styled.Todo';
 import plus from '../image/plus.svg';
 import { TODO } from '../api/todo';
@@ -8,6 +9,7 @@ export default function Todo() {
 	const [todoInput, setTodoInput] = useState('');
 	const [listArray, setListArray] = useState([]);
 	const todoInputHandler = e => setTodoInput(e.target.value);
+	const navigate = useNavigate();
 
 	const addList = e => {
 		e.preventDefault();
@@ -26,7 +28,6 @@ export default function Todo() {
 		e.preventDefault();
 		if (window.confirm('정말로 수정하시겠습니까?')) {
 			const [updateValue] = listArray.filter(({ id }) => id === seletedId);
-			console.log(updateValue);
 			TODO.UPDATE(seletedId, updateValue.todo, updateValue.isCompleted);
 		}
 	};
@@ -54,8 +55,12 @@ export default function Todo() {
 	};
 
 	useEffect(() => {
-		TODO.GET(setListArray);
-	}, []);
+		if (!localStorage.getItem('token')) {
+			navigate('/');
+		} else {
+			TODO.GET(setListArray);
+		}
+	}, [navigate]);
 	return (
 		<S.TodoDiv>
 			<S.TodoAddBox>

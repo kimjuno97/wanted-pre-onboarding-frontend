@@ -1,9 +1,7 @@
 import { baseUrl } from './api';
 
 const url = `${baseUrl}/todos`;
-function token() {
-	return localStorage.getItem('token');
-}
+const token = () => localStorage.getItem('token');
 
 export const TODO = {
 	GET: setListArray => {
