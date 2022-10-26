@@ -30,7 +30,6 @@ npm start
 📦src
  ┣ 📂api
  ┃ ┣ 📜api.js
- ┃ ┣ 📜header.js
  ┃ ┗ 📜todo.js
  ┣ 📂Auth
  ┃ ┣ 📜Auth.js
@@ -48,6 +47,6 @@ npm start
  ┗ 📜Router.js
 ```
 
-## 에세이 
-[👉 에세이 👈](https://blog.naver.com/wnsgh818)
+## 에세이
 
+[👉 에세이 👈](https://blog.naver.com/wnsgh818)
