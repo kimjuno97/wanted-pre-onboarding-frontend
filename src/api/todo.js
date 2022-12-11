@@ -4,7 +4,7 @@ const url = `${baseUrl}/todos`;
 const token = () => localStorage.getItem('token');
 
 export const TODO = {
-	GET: setListArray => {
+	GET: async () => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -12,12 +12,11 @@ export const TODO = {
 				'Content-Type': 'application/json',
 			},
 		};
-		fetch(url, options)
-			.then(res => res.json())
-			.then(data => setListArray([...data]));
+		const res = await fetch(url, options);
+		return await res.json();
 	},
 
-	POST: (bodyData, setListArray) => {
+	POST: bodyData => {
 		const options = {
 			method: 'POST',
 			headers: {
@@ -27,11 +26,9 @@ export const TODO = {
 			body: JSON.stringify(bodyData),
 		};
 
-		fetch(url, options)
-			.then(res => res.json())
-			.then(data => setListArray(prev => [...prev, data]));
+		return fetch(url, options).then(res => res.json());
 	},
-	DELETE: id => {
+	DELETE: async id => {
 		const deleteUrl = `${url}/${id}`;
 		const options = {
 			method: 'DELETE',
@@ -40,13 +37,12 @@ export const TODO = {
 				'Content-Type': 'application/json',
 			},
 		};
-		fetch(deleteUrl, options).then(({ ok }) => {
-			if (ok) {
-				alert('삭제되었습니다');
-			}
-		});
+		const { ok } = await fetch(deleteUrl, options);
+		if (ok) {
+			alert('삭제되었습니다');
+		}
 	},
-	UPDATE: (id, todo, isCompleted) => {
+	UPDATE: ({ id, todo, isCompleted }) => {
 		const updateUrl = `${url}/${id}`;
 		const options = {
 			method: 'PUT',
@@ -54,7 +50,7 @@ export const TODO = {
 				Authorization: `Bearer ${token()}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ todo: todo, isCompleted: isCompleted }),
+			body: JSON.stringify({ todo, isCompleted }),
 		};
 		fetch(updateUrl, options).then(({ ok }) => {
 			if (ok) {

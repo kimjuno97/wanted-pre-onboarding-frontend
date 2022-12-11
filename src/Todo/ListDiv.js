@@ -1,32 +1,42 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import deleteBtn from '../image/delete.svg';
+import useDeleteTodo from '../query/useDeleteTodo';
+import useUpdataTodo from '../query/useUpdataTodo';
 
-export default function ListDiv({
-	todo,
-	id,
-	isCompleted,
-	changeChecked,
-	deleteList,
-	updataList,
-	changListValue,
-}) {
+export default function ListDiv({ todo, id, isCompleted }) {
+	const { deleteMutation } = useDeleteTodo();
+	const { updateMutation } = useUpdataTodo();
+
+	const checkedInputRef = useRef(null);
+	const todoInputRef = useRef(null);
+
 	const [updateToggle, setUpdataToggle] = useState(false);
 	const [tooltipToggle, setTooltipToggle] = useState(false);
 	const tooltip = updateToggle ? '삭제가능' : '수정가능';
 
 	const updateValue = updateToggle
-		? { value: todo, onChange: e => changListValue(e, id), isCompleted }
-		: { value: todo, readOnly: true, isCompleted };
+		? { ref: todoInputRef }
+		: { readOnly: true, isCompleted };
 
-	const tryUpdate = e => {
+	const tryUpdate = () => {
 		setUpdataToggle(prev => !prev);
 	};
 
 	const showBtn = updateToggle ? (
-		<StyledUpdateBtn onClick={e => updataList(e, id)}>✍️</StyledUpdateBtn>
+		<StyledUpdateBtn
+			onClick={() => {
+				updateMutation.mutate({
+					id,
+					isCompleted: checkedInputRef.current.checked,
+					todo: todoInputRef.current.value,
+				});
+				tryUpdate();
+			}}>
+			✍️
+		</StyledUpdateBtn>
 	) : (
-		<StyledDelBtn onClick={() => deleteList(id)}>
+		<StyledDelBtn onClick={() => deleteMutation.mutate(id)}>
 			<img src={deleteBtn} alt='delBtn' />
 		</StyledDelBtn>
 	);
@@ -35,14 +45,14 @@ export default function ListDiv({
 		<Styledform
 			onMouseOver={() => setTooltipToggle(true)}
 			onMouseLeave={() => setTooltipToggle(false)}
-			onDoubleClick={tryUpdate}>
+			onDoubleClick={tryUpdate}
+			onSubmit={e => e.preventDefault()}>
 			<input
 				type='checkbox'
-				checked={isCompleted}
-				readOnly
-				onClick={() => changeChecked(id)}
+				defaultChecked={isCompleted}
+				ref={checkedInputRef}
 			/>
-			<StyledInput {...updateValue} />
+			<StyledInput type='text' defaultValue={todo} {...updateValue} />
 			{tooltipToggle && <Tooltip>더블클릭시 {tooltip}</Tooltip>}
 			{showBtn}
 		</Styledform>
