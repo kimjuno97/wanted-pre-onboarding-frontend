@@ -63,7 +63,7 @@ export default function useAuth() {
 					} else {
 						alert('환영 합니다!');
 					}
-					navigate('./todo');
+					navigate('/todo');
 				} else {
 					alert('회원정보를 확인해주세요.');
 					window.location.reload();
