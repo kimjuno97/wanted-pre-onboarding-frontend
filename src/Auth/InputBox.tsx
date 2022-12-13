@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+interface TypeProps {
+	name: 'email' | 'password' | 'confirm';
+	type: 'email' | 'password' | 'confirm';
+	placeholder: 'ID' | 'PW' | 'New ID' | 'New PW' | 'Checked PW';
+	valid: boolean;
+	signMode?: 'signIn' | 'signUp';
+	inputValues: { email: string; password: string; confirm: string };
+	inputValuesHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export default function InputBox({
 	name,
 	placeholder,
@@ -8,7 +18,7 @@ export default function InputBox({
 	inputValuesHandler,
 	valid,
 	signMode,
-}) {
+}: TypeProps) {
 	const comment = {
 		email:
 			valid && name === 'email'
@@ -54,8 +64,8 @@ const StyledInputBox = styled.input`
 	}
 `;
 
-const CheckValues = styled.div`
+const CheckValues = styled.div<{ valid: boolean }>`
 	height: 1.8rem;
-	color: ${({ valid }) => (valid === true ? 'blue' : 'red')};
+	color: ${({ valid }) => (valid ? 'blue' : 'red')};
 	font-size: 1.8rem;
 `;

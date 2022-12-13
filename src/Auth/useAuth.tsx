@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../api/api';
 import InputBox from './InputBox';
@@ -15,7 +15,7 @@ export default function useAuth() {
 	const chckedId = inputValues.email.includes('@');
 	const checkePw = inputValues.password.length >= 8;
 	const checkConfirm = checkePw && inputValues.password === inputValues.confirm;
-	const disableObj = {
+	const disableObj: { [key: string]: boolean } = {
 		signIn: chckedId && checkePw,
 		signUp: chckedId && checkePw && checkConfirm,
 	};
@@ -28,7 +28,7 @@ export default function useAuth() {
 		}
 	};
 
-	const inputValuesHandler = e => {
+	const inputValuesHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setInputValues(prev => ({
 			...prev,
@@ -36,7 +36,7 @@ export default function useAuth() {
 		}));
 	};
 
-	const trySignIn = e => {
+	const trySignIn = (e: React.FormEvent) => {
 		e.preventDefault();
 		const { email, password } = inputValues;
 		const authUrl =

@@ -1,10 +1,11 @@
 import { baseUrl } from './api';
+import { TypeTodo } from '../Todo/useTodo';
 
 const url = `${baseUrl}/todos`;
 const token = () => localStorage.getItem('token');
 
 export const TODO = {
-	GET: setListArray => {
+	GET: (setListArray: React.Dispatch<React.SetStateAction<TypeTodo[]>>) => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -17,7 +18,10 @@ export const TODO = {
 			.then(data => setListArray([...data]));
 	},
 
-	POST: (bodyData, setListArray) => {
+	POST: (
+		bodyData: { todo: string },
+		setListArray: React.Dispatch<React.SetStateAction<TypeTodo[]>>
+	) => {
 		const options = {
 			method: 'POST',
 			headers: {
@@ -31,7 +35,7 @@ export const TODO = {
 			.then(res => res.json())
 			.then(data => setListArray(prev => [...prev, data]));
 	},
-	DELETE: id => {
+	DELETE: (id: number) => {
 		const deleteUrl = `${url}/${id}`;
 		const options = {
 			method: 'DELETE',
@@ -46,7 +50,7 @@ export const TODO = {
 			}
 		});
 	},
-	UPDATE: (id, todo, isCompleted) => {
+	UPDATE: (id: number, body: { todo: string; isCompleted: boolean }) => {
 		const updateUrl = `${url}/${id}`;
 		const options = {
 			method: 'PUT',
@@ -54,7 +58,7 @@ export const TODO = {
 				Authorization: `Bearer ${token()}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ todo: todo, isCompleted: isCompleted }),
+			body: JSON.stringify(body),
 		};
 		fetch(updateUrl, options).then(({ ok }) => {
 			if (ok) {

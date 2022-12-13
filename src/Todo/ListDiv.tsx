@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import deleteBtn from '../image/delete.svg';
+import { TypeTodo } from './useTodo';
+
+interface TypeProps extends TypeTodo {
+	changeChecked: (seletedId: number) => void;
+	deleteList: (seletedId: number) => void;
+	updataList: (e: React.FormEvent, seletedId: number) => void;
+	changListValue: (
+		e: React.ChangeEvent<HTMLInputElement>,
+		seletedId: number
+	) => void;
+}
 
 export default function ListDiv({
 	todo,
@@ -10,16 +21,21 @@ export default function ListDiv({
 	deleteList,
 	updataList,
 	changListValue,
-}) {
+}: TypeProps) {
 	const [updateToggle, setUpdataToggle] = useState(false);
 	const [tooltipToggle, setTooltipToggle] = useState(false);
 	const tooltip = updateToggle ? '삭제가능' : '수정가능';
 
 	const updateValue = updateToggle
-		? { value: todo, onChange: e => changListValue(e, id), isCompleted }
+		? {
+				value: todo,
+				onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+					changListValue(e, id),
+				isCompleted,
+		  }
 		: { value: todo, readOnly: true, isCompleted };
 
-	const tryUpdate = e => {
+	const tryUpdate = () => {
 		setUpdataToggle(prev => !prev);
 	};
 
@@ -60,7 +76,7 @@ const Styledform = styled.form`
 	cursor: pointer;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ isCompleted: boolean }>`
 	width: 40rem;
 	height: 3.5rem;
 	border: none;
